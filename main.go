@@ -2,15 +2,30 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
-  "errors"
 )
 
 type Elf struct {
   Calories int
 }
+
+type Elves []Elf
+
+func (e Elves) Len() int {
+  return len(e)
+}
+func (e Elves) Less(a, b int) bool {
+  return e[a].Calories < e[b].Calories
+}
+func (e Elves) Swap(a, b int) {
+  e[a], e[b] = e[b], e[a]
+}
+
+
 
 func main() {
   file, err := os.Open("./day-01/input.txt")
@@ -23,7 +38,7 @@ func main() {
 
   scanner := bufio.NewScanner(file)
 
-  elves := []Elf{}
+  elves := Elves{}
 
   elf := &Elf{}
 
@@ -45,14 +60,24 @@ func main() {
     elf.Calories += cals
   }
 
-  maxElf, err := MostCalories(elves)
+  /* This was Part 1 */
+  // maxElf, err := MostCalories(elves)
 
-  if err != nil {
-    fmt.Println("Didn't get no elves, whooooops")
-    os.Exit(42)
+  // if err != nil {
+  //   fmt.Println("Didn't get no elves, whooooops")
+  //   os.Exit(42)
+  // }
+
+  // fmt.Println("Most calories carried are: ", maxElf.Calories)
+
+  sort.Sort(Elves(elves))
+
+  totalCalories := 0
+  for _, e := range elves[len(elves) -3:] {
+    totalCalories += e.Calories
   }
 
-  fmt.Println("Most calories carried are: ", maxElf.Calories)
+  fmt.Println("Calories carried by top three elves are: ", totalCalories)
 }
 
 func MostCalories(elves []Elf) (Elf, error) {
