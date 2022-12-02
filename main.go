@@ -2,7 +2,7 @@ package main
 
 import (
   "fmt"
-  rps "aoc/v2/day-02"
+  rps "aoc/v2/day-02/part2"
 )
 
 func main() {

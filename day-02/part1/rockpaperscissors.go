@@ -1,4 +1,4 @@
-package rps
+package daytwo_part1
 
 import (
 	"bufio"
@@ -21,6 +21,21 @@ func TotalScore(path string) int {
 	return totalScore(file)
 }
 
+const drawPoints = 3
+const winPoints = 6
+const lossPoints = 0
+
+var choicePoints = map[string]int{
+	"X": 1,
+	"Y": 2,
+	"Z": 3,
+}
+var moves = map[string]string{
+	"A": "X",
+	"B": "Y",
+	"C": "Z",
+}
+
 func totalScore(data io.Reader) int {
 	scanner := bufio.NewScanner(data)
 
@@ -36,21 +51,6 @@ func totalScore(data io.Reader) int {
 	}
 
 	return score
-}
-
-const drawPoints = 3
-const winPoints = 6
-const lossPoints = 0
-
-var choicePoints = map[string]int{
-	"X": 1,
-	"Y": 2,
-	"Z": 3,
-}
-var moves = map[string]string{
-	"A": "X",
-	"B": "Y",
-	"C": "Z",
 }
 
 // Takes two moves, returns outcome
@@ -70,9 +70,9 @@ func game(opp, mine string) int {
 	}
 
 	// Loss
-  return lossPoints + cp
+	return lossPoints + cp
 }
 
 func isWin(a, b string) bool {
-  return a == "X" && b == "Y" || a == "Y" && b == "Z" || a == "Z" && b == "X" 
+	return a == "X" && b == "Y" || a == "Y" && b == "Z" || a == "Z" && b == "X"
 }

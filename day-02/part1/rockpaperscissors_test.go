@@ -1,4 +1,4 @@
-package rps
+package daytwo_part1
 
 import (
 	"io"
