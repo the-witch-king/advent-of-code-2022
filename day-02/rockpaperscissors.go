@@ -2,12 +2,23 @@ package rps
 
 import (
 	"bufio"
+	"fmt"
 	"io"
+	"os"
 	"strings"
 )
 
-func TotalScore() int {
-	return 0
+func TotalScore(path string) int {
+	file, err := os.Open(path)
+
+	if err != nil {
+		fmt.Println("Unable to read input!", err)
+		os.Exit(69)
+	}
+
+	defer file.Close()
+
+	return totalScore(file)
 }
 
 func totalScore(data io.Reader) int {

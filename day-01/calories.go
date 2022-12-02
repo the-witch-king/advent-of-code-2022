@@ -10,8 +10,8 @@ import (
 )
 
 
-func DayOneNoArray() {
-  file, err := os.Open("./day-01/input.txt")
+func DayOneNoArray(path string) {
+  file, err := os.Open(path)
 
   if err != nil {
     fmt.Println("Unable to read input!", err)
@@ -77,11 +77,12 @@ func (e Elves) Swap(a, b int) {
 }
 
 
-func DayOne() {
-  file, err := os.Open("./day-01/input.txt")
+func DayOne(path string) {
+  file, err := os.Open(path)
 
   if err != nil {
     fmt.Println("Unable to read input!", err)
+    os.Exit(69)
   }
 
   defer file.Close()
