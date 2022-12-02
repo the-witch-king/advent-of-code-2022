@@ -9,6 +9,61 @@ import (
 	"strconv"
 )
 
+
+func main() {
+  DayOneNoArray()
+}
+
+func DayOneNoArray() {
+  file, err := os.Open("./day-01/input.txt")
+
+  if err != nil {
+    fmt.Println("Unable to read input!", err)
+  }
+
+  defer file.Close()
+
+  scanner := bufio.NewScanner(file)
+
+  cals := 0
+
+  most := 0
+  moster := 0
+  mostest := 0
+
+  for scanner.Scan() {
+    line := scanner.Text()
+
+    if line == "" {
+      if cals > mostest {
+        mostest, cals = cals, mostest
+      }
+
+      if cals > moster {
+        moster, cals = cals, moster
+      }
+
+      if cals > most {
+        most, cals = cals, most
+      }
+
+      cals = 0
+      continue
+    }
+
+    c, err := strconv.Atoi(line)
+
+    if err != nil {
+      fmt.Println("Error reading a line!")
+      os.Exit(69)
+    }
+
+    cals += c
+  }
+
+  fmt.Printf("Calories carried by top three elves are: %d\n", most + moster + mostest)
+}
+
 type Elf struct {
   Calories int
 }
@@ -26,8 +81,7 @@ func (e Elves) Swap(a, b int) {
 }
 
 
-
-func main() {
+func DayOne() {
   file, err := os.Open("./day-01/input.txt")
 
   if err != nil {
@@ -78,6 +132,7 @@ func main() {
   }
 
   fmt.Println("Calories carried by top three elves are: ", totalCalories)
+
 }
 
 func MostCalories(elves []Elf) (Elf, error) {
