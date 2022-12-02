@@ -9,7 +9,6 @@ import (
 // A, X   Rock     1 pts
 // B, Y   Paper    2 pts
 // C, Z   Scissors 3 pts
-
 // Win   6 pts
 // Draw  3 pts
 // Lose  0 pts
