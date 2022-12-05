@@ -2,9 +2,9 @@ package main
 
 import (
   "fmt"
-  pir "aoc/v2/day-03/part1"
+  d3 "aoc/v2/day-03"
 )
 
 func main() {
-  fmt.Println("Total score was: ", pir.PointsInRucksack("./day-03/input.txt"))
+  fmt.Println("Total score was: ", d3.SumOfBadges("./day-03/input.txt"))
 }

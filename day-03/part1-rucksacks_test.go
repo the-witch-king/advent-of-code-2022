@@ -1,4 +1,4 @@
-package daythree_part1
+package daythree
 
 import (
 	"io"
@@ -23,10 +23,10 @@ var pointsInRucksackTests = []pointsInRucksackTest{
 	{"P", strings.NewReader("PmmdzqPrVvPwwTWBwg"), 42}, 
 
 	// Combo
-	{"Combo", strings.NewReader("afaJ\nAfAJ\nvJrwpWtwJgWrhcsFMMfFFhFp"), 16 + 1 + 27},
+	{"Combo", strings.NewReader("afaJ\nAfAJ\nvJrwpWtwJgWrhcsFMMfFFhFpk"), 16 + 1 + 27},
 }
 
-func TestTotalScore(t *testing.T) {
+func TestPointsInRucksack(t *testing.T) {
 	for _, test := range pointsInRucksackTests {
 		if output := pointsInRucksack(test.input); output != test.result {
 			t.Errorf("\n[%s]\nWanted:\t%v\nGot:\t%v", test.name,  test.result, output)

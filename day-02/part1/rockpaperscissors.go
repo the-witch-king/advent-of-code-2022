@@ -3,9 +3,7 @@ package daytwo_part1
 import (
 	"aoc/v2/utils"
 	"bufio"
-	"fmt"
 	"io"
-	"os"
 	"strings"
 )
 
