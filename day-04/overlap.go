@@ -15,9 +15,26 @@ type interval struct {
 	Start int
 	End   int
 }
-func (a interval) overlaps(b interval) bool {
+func overlapCompletely(a, b interval) bool {
 	return (a.Start <= b.Start && b.End <= a.End) ||
 		(b.Start <= a.Start && a.End <= b.End)
+}
+func overlap(a, b interval) bool {
+	// A
+	// Start within range
+	aS := a.Start >= b.Start && a.Start <= b.End
+
+	// End within range
+	aE := a.End >= b.Start && a.End <= b.End
+
+	// B
+	// Start within range
+	bS := b.Start >= a.Start && b.Start <= a.End
+
+	// End within range
+	bE := b.End >= a.Start && b.End <= a.End
+
+	return aS || aE || bS || bE
 }
 
 type intervalPair struct {
@@ -25,13 +42,13 @@ type intervalPair struct {
 	Second interval
 }
 
-func overlappingIntervals(intervals []intervalPair) int {
+func overlappingIntervals(intervals []intervalPair, overlapCheck func (a, b interval) bool) int {
 	total := 0
 
 	for _, pair := range intervals {
 		a, b := pair.First, pair.Second
 
-		if a.overlaps(b) {
+		if overlapCheck(a, b) {
 			total++
 		}
 	}
@@ -40,11 +57,17 @@ func overlappingIntervals(intervals []intervalPair) int {
 }
 
 /** Input parsing **/
+func OverlapCompletely(path string) int {
+	f := utils.OpenFile(path)
+	defer f.Close()
+
+	return overlappingIntervals(getIntervals(f), overlapCompletely)
+}
 func Overlap(path string) int {
 	f := utils.OpenFile(path)
 	defer f.Close()
 
-	return overlappingIntervals(getIntervals(f))
+	return overlappingIntervals(getIntervals(f), overlap)
 }
 
 func getIntervals(d io.Reader) []intervalPair {
