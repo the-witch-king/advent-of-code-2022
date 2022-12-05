@@ -1,6 +1,7 @@
 package daytwo_part1
 
 import (
+	"aoc/v2/utils"
 	"bufio"
 	"fmt"
 	"io"
@@ -9,16 +10,9 @@ import (
 )
 
 func TotalScore(path string) int {
-	file, err := os.Open(path)
-
-	if err != nil {
-		fmt.Println("Unable to read input!", err)
-		os.Exit(69)
-	}
-
-	defer file.Close()
-
-	return totalScore(file)
+	f := utils.OpenFile(path)
+	defer f.Close()
+	return totalScore(f)
 }
 
 const drawPoints = 3

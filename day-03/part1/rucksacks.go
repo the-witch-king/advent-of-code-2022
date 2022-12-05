@@ -8,7 +8,7 @@ import (
 
 func PointsInRucksack(path string) int {
   f := utils.OpenFile(path)
-
+  defer f.Close()
 	return pointsInRucksack(f)
 }
 

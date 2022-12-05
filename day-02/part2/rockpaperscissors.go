@@ -1,10 +1,9 @@
 package daytwo_part2
 
 import (
+	"aoc/v2/utils"
 	"bufio"
-	"fmt"
 	"io"
-	"os"
 	"strings"
 )
 
@@ -36,16 +35,9 @@ var lossMoves = map[string]string{
 
 
 func TotalScore(path string) int {
-	file, err := os.Open(path)
-
-	if err != nil {
-		fmt.Println("Unable to read input!", err)
-		os.Exit(69)
-	}
-
-	defer file.Close()
-
-	return totalScore(file)
+	f := utils.OpenFile(path)
+	defer f.Close()
+	return totalScore(f)
 }
 
 func totalScore(data io.Reader) int {

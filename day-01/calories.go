@@ -1,6 +1,7 @@
 package calories
 
 import (
+	"aoc/v2/utils"
 	"bufio"
 	"errors"
 	"fmt"
@@ -11,12 +12,7 @@ import (
 
 
 func DayOneNoArray(path string) {
-  file, err := os.Open(path)
-
-  if err != nil {
-    fmt.Println("Unable to read input!", err)
-  }
-
+  file := utils.OpenFile(path)
   defer file.Close()
 
   scanner := bufio.NewScanner(file)
