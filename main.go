@@ -2,9 +2,9 @@ package main
 
 import (
   "fmt"
-  rps "aoc/v2/day-02/part2"
+  pir "aoc/v2/day-03/part1"
 )
 
 func main() {
-  fmt.Println("Total score was: ", rps.TotalScore("./day-02/input.txt"))
+  fmt.Println("Total score was: ", pir.PointsInRucksack("./day-03/input.txt"))
 }
