@@ -4,6 +4,22 @@ type stack struct {
 	crates []rune
 }
 
+// Multi item operations
+func (s *stack) popMany(amount int) []rune {
+	if len(s.crates) <= amount {
+		r := s.crates
+		s.crates = []rune{}
+		return r
+	}
+
+	r := s.crates[len(s.crates) - amount:]
+	s.crates = s.crates[:len(s.crates) - amount]
+	return r
+}
+func (s *stack) pushMany(c []rune) {
+	s.crates = append(s.crates, c...)
+}
+
 // Single item operations
 func (s *stack) unshift(c rune) {
 	s.crates = append([]rune{c}, s.crates...)

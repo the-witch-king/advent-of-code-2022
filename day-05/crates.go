@@ -24,7 +24,7 @@ func MoveCrates(path string) string {
 	f := utils.OpenFile(path)
 	defer f.Close()
 
-	return moveCrates(f, crateMover9000)
+	return moveCrates(f, crateMover9001)
 }
 
 // Read file, split into "map" + commands
@@ -49,6 +49,22 @@ func moveCrates(data io.Reader, crane func([]stack, string)) string {
 
 	return result
 }
+
+// Part 2
+func crateMover9001(stacks []stack, commandLine string) {
+		cmd := strings.Split(commandLine, " ")
+
+		amount, err := strconv.Atoi(cmd[amountIndex])
+		handleError(err)
+		from, err := strconv.Atoi(cmd[fromIndex])
+		handleError(err)
+		to, err := strconv.Atoi(cmd[toIndex])
+		handleError(err)
+
+		c := stacks[from - 1].popMany(amount)
+		stacks[to - 1].pushMany(c)
+}
+
 
 // Part 1
 func crateMover9000(stacks []stack, commandLine string) {
