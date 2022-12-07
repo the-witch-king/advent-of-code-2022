@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-  fmt.Printf("Result was: %d", d6.LockOn("./day-06/input.txt"))
+  fmt.Printf("Result was: %d", d6.LockOnMessage("./day-06/input.txt"))
 }

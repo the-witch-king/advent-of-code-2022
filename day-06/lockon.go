@@ -3,45 +3,53 @@ package daysix
 import (
 	"aoc/v2/utils"
 	"bufio"
-	"io"
 )
 
 const oneIndexOffset = 1
+const packetLen = 4
+const messageLen = 14
 
-func LockOn(path string) int {
+func LockOnPacket(path string) int {
   f := utils.OpenFile(path)
   defer f.Close()
 
-  return lockOn(f)
-}
-
-func lockOn(data io.Reader) int {
-  scanner := bufio.NewScanner(data)
+  scanner := bufio.NewScanner(f)
   scanner.Scan()
   line := scanner.Text()
-  return startOfPacket(line) + oneIndexOffset
+  return indexOfUnique(line, packetLen) + oneIndexOffset
 }
 
-func startOfPacket(s string) int {
-  v := map[rune]bool{}
-  count := 0
-  index := 0
+func LockOnMessage(path string) int {
+  f := utils.OpenFile(path)
+  defer f.Close()
 
-  for i, c := range s {
-    if _, visited := v[c]; visited {
+  scanner := bufio.NewScanner(f)
+  scanner.Scan()
+  line := scanner.Text()
+  return indexOfUnique(line, messageLen) + oneIndexOffset
+}
+
+func indexOfUnique(s string, maxCount int) int {
+  v := map[rune]int{}
+  count := 0
+
+  for i := 0; i < len(s); i++ {
+    c := rune(s[i])
+
+    if lastSeenAt, visited := v[c]; visited {
       count = 0
-      v = map[rune]bool{}
+      i = lastSeenAt
+      v = map[rune]int{}
       continue
     }
 
-    v[c] = true
-    index = i
+    v[c] = i
     count++
 
-    if count == 4 {
-      break
+    if count == maxCount {
+      return i
     }
   }
-  return index
+  return -1
 }
 
