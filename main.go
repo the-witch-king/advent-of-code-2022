@@ -2,9 +2,9 @@ package main
 
 import (
   "fmt"
-  d5 "aoc/v2/day-05"
+  d6 "aoc/v2/day-06"
 )
 
 func main() {
-  fmt.Printf("Result was: %s", d5.MoveCrates("./day-05/input.txt"))
+  fmt.Printf("Result was: %d", d6.LockOn("./day-06/input.txt"))
 }
