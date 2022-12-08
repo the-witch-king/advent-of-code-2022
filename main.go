@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-  fmt.Printf("Result was: %d", d7.TotalSizeOfDirectoriesToDelete("./day-07/input.txt"))
+  fmt.Printf("Result was: %d\n", d7.SmallestDirToDelete("./day-07/input.txt"))
 }

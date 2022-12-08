@@ -10,30 +10,26 @@ import (
 	"strings"
 )
 
+const sizeRequiredForUpdate = 30_000_000
+const totalDiskSpace = 70_000_000
+func SmallestDirToDelete(path string) int {
+	f := utils.OpenFile(path)
+	defer f.Close()
+	os, _ := buildOperatingSystem(f)
+
+	remainingDiskSpace := totalDiskSpace - os.Size()
+	amountNeededToDelete := sizeRequiredForUpdate - remainingDiskSpace
+	r := sizeOfClosest(os, amountNeededToDelete)
+
+	return r
+}
+
 func TotalSizeOfDirectoriesToDelete(path string) int {
 	f := utils.OpenFile(path)
 	defer f.Close()
 	os, _ := buildOperatingSystem(f)
 
 	return sizeOfAllUnder(os, 100000)
-}
-
-func sizeOfAllUnder(root *Directory, max int) int {
-	s := 0
-
-	if root == nil {
-		return 0
-	}
-
-	if root.Size() < max {
-		s += root.Size()
-	}
-
-	for _, d := range root.directories {
-		s += sizeOfAllUnder(d, max)
-	}
-
-	return s
 }
 
 func buildOperatingSystem(input io.Reader) (*Directory, *Directory) {
