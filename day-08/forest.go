@@ -16,6 +16,13 @@ func VisibleTrees(path string) int {
 	return visibleTrees(makeMatrix(f))
 }
 
+func ScenicScore(path string) int {
+	f := utils.OpenFile(path)
+	defer f.Close()
+
+	return scenicScore(makeMatrix(f))
+}
+
 func makeMatrix(data io.Reader) [][]int {
 	matrix := [][]int{}
 
@@ -40,6 +47,72 @@ func makeMatrix(data io.Reader) [][]int {
 	}
 
 	return matrix
+}
+
+func scenicScore(matrix [][]int) int {
+	max := 0
+	scan := 0
+
+	cols := len(matrix)
+	rows := len(matrix[0])
+
+	for r, row := range matrix {
+		for c := range row {
+			up, right, down, left := 0, 0, 0, 0
+			tree := matrix[r][c]
+
+			// Left
+			scan = c - 1
+			for scan >= 0 {
+				left++
+				v := matrix[r][scan]
+				if v >= tree {
+					break
+				}
+				scan--
+			}
+
+			// Right
+			scan = c + 1
+			for scan < cols {
+				right++
+				v := matrix[r][scan]
+				if v >= tree {
+					break
+				}
+				scan++
+			}
+
+			// Up
+			scan = r - 1
+			for scan >= 0 {
+				up++
+				v := matrix[scan][c]
+				if v >= tree {
+					break
+				}
+				scan--
+			}
+
+			// Down
+			scan = r + 1
+			for scan < rows {
+				down++
+				v := matrix[scan][c]
+				if v >= tree {
+					break
+				}
+				scan++
+			}
+
+			score := up * down * right * left
+			if score > max {
+				max = score
+			}
+		}
+	}
+
+	return max
 }
 
 func visibleTrees(matrix [][]int) int {

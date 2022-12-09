@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-  fmt.Printf("Result was: %d\n", d8.VisibleTrees("./day-08/input.txt"))
+  fmt.Printf("Result was: %d\n", d8.ScenicScore("./day-08/input.txt"))
 }
